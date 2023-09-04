@@ -19,3 +19,8 @@ SELECT a.nome, m.curso
 FROM alunos a
 INNER JOIN matriculas m ON a.id = m.aluno_id
 WHERE curso = 'Engenharia de Software';
+
+-- 5
+SELECT produto, SUM(receita) AS total_receita
+FROM vendas
+GROUP BY produto;
