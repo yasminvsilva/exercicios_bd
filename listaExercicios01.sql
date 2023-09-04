@@ -79,3 +79,14 @@ RIGHT JOIN matriculas m ON a.id = m.aluno_id;
 SELECT a.nome, m.curso
 FROM alunos a
 INNER JOIN matriculas m ON a.id = m.aluno_id;
+
+-- 16
+SELECT nome
+FROM autores
+WHERE id = (
+	SELECT autor_id
+    FROM livros
+    GROUP BY autor_id
+    ORDER BY COUNT(*) DESC
+    LIMIT 1
+);
