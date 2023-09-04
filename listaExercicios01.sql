@@ -74,3 +74,8 @@ LEFT JOIN livros l ON a.id = l.autor_id;
 SELECT a.nome, m.curso
 FROM alunos a
 RIGHT JOIN matriculas m ON a.id = m.aluno_id;
+
+-- 15
+SELECT a.nome, m.curso
+FROM alunos a
+INNER JOIN matriculas m ON a.id = m.aluno_id;
