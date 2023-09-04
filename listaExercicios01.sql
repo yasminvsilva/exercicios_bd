@@ -54,3 +54,8 @@ FROM autores a
 INNER JOIN livros l ON a.id = l.autor_id
 GROUP BY a.nome
 HAVING qtd_livros > 2;
+
+-- 11
+SELECT a.nome, l.titulo
+FROM autores a
+INNER JOIN livros l ON a.id = l.autor_id;
