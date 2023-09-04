@@ -30,3 +30,9 @@ SELECT a.nome, COUNT(autor_id) AS numero_livros
 FROM autores a
 INNER JOIN livros l ON a.id = l.autor_id
 GROUP BY a.nome;
+
+-- 7
+SELECT m.curso, COUNT(a.id) AS qtd_alunos
+FROM matriculas m
+INNER JOIN alunos a ON m.aluno_id = a.id
+GROUP BY m.curso;
