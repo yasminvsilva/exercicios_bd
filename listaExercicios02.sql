@@ -135,3 +135,28 @@ DELIMITER ;
 
 CALL sp_AutorMaisAntigo();
 
+-- 9
+-- Escolhi o exercício 3 para poder comentar cada um dos comandos da stored procedure.
+
+DELIMITER // -- É um delimitador temporário.
+CREATE PROCEDURE sp_ContarLivrosPorCategoria(IN nm_categoria VARCHAR(50)) -- Cria a stored procedure com
+-- o nome de 'sp_ContarLivrosPorCategoria', inserindo como parâmetro a variável 'nm_categoria' do tipo 
+-- VARCHAR.
+BEGIN -- Inicia a stored procedure.
+	SELECT c.Nome, COUNT(l.Titulo) AS qtd_livros -- Seleciona a coluna Nome da tabela Categoria e também,
+    -- é utilizada o comando COUNT para fazer a contagem de quantas vezes a coluna Título da tabela Livro
+    -- aparece, obtendo o nome de 'qtd_livros'.
+    FROM Livro l -- Seleciona a tabela Livro.
+    INNER JOIN Categoria c ON l.Categoria_ID = c.Categoria_ID -- Traz para a minha seleção a tabela Categoria
+    -- para obter o nome da categoria, sendo relacionada pelos ID's.
+    WHERE c.Nome = nm_categoria -- Define que a coluna Nome da tabela Categoria será igual a variável
+    -- 'nm_categoria', que é o meu parâmetro, para ser possível relacionar o nome da categoria passado pelo
+    -- comando CALL com o nome da categoria inserido na tabela.
+    GROUP BY c.Nome; -- Agrupa os resultados por Nome.
+END; -- Encerra a stored procedure.
+// -- Fecha com o delimitador temporário definido.
+DELIMITER ; -- Volta para o delimitador padrão ';'. 
+
+CALL sp_ContarLivrosPorCategoria('Ciência'); -- Chama a stored procedure, precisando passar um parâmetro
+-- que é o nome da categoria.
+
