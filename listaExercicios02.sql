@@ -65,3 +65,17 @@ DELIMITER ;
 
 CALL sp_VerificarLivrosCategoria('Ficção Científica', @tem_livros);
 SELECT @tem_livros;
+
+-- 5
+DELIMITER //
+CREATE PROCEDURE sp_LivrosAteAno(IN ano_livro INT)
+BEGIN
+	SELECT l.Titulo, l.Ano_Publicacao
+	FROM Livro l
+	WHERE l.Ano_Publicacao < ano_livro
+    ORDER BY l.Ano_Publicacao;
+END;
+//
+DELIMITER ;
+
+CALL sp_LivrosAteAno(2000);
