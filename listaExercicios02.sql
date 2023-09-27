@@ -160,3 +160,17 @@ DELIMITER ; -- Volta para o delimitador padrão ';'.
 CALL sp_ContarLivrosPorCategoria('Ciência'); -- Chama a stored procedure, precisando passar um parâmetro
 -- que é o nome da categoria.
 
+-- 10
+DELIMITER //
+CREATE PROCEDURE sp_LivrosESeusAutores()
+BEGIN
+	SELECT l.Titulo, a.Nome, a.Sobrenome
+    FROM Livro l
+    INNER JOIN Autor_Livro al ON l.Livro_ID = al.Livro_ID
+    INNER JOIN Autor a ON a.Autor_ID = al.Autor_ID;
+END;
+//
+DELIMITER ;
+
+CALL sp_LivrosESeusAutores();
+
