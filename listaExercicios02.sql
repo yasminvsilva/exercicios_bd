@@ -25,3 +25,19 @@ END;
 DELIMITER ;
 
 CALL sp_LivrosPorCategoria('Autoajuda');
+
+-- 3
+DELIMITER //
+CREATE PROCEDURE sp_ContarLivrosPorCategoria(IN nm_categoria VARCHAR(50))
+BEGIN
+	SELECT c.Nome, COUNT(l.Titulo) AS qtd_livros
+    FROM Livro l
+    INNER JOIN Categoria c ON l.Categoria_ID = c.Categoria_ID
+    WHERE c.Nome = nm_categoria
+    GROUP BY c.Nome;
+END;
+//
+DELIMITER ;
+
+CALL sp_ContarLivrosPorCategoria('Ciência');
+
