@@ -118,3 +118,20 @@ DELIMITER ;
 
 CALL sp_AdicionarLivro('Amor e Gelato');
 SELECT l.Titulo FROM Livro l;
+
+-- 8
+DELIMITER //
+CREATE PROCEDURE sp_AutorMaisAntigo()
+BEGIN
+	SELECT Nome, Sobrenome, Data_Nascimento
+    FROM Autor
+    WHERE Data_Nascimento = (
+		SELECT MIN(Data_Nascimento)
+        FROM Autor
+	);
+END;
+//
+DELIMITER ;
+
+CALL sp_AutorMaisAntigo();
+
