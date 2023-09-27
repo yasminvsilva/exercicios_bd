@@ -118,4 +118,3 @@ DELIMITER ;
 
 CALL sp_AdicionarLivro('Amor e Gelato');
 SELECT l.Titulo FROM Livro l;
-
