@@ -41,3 +41,27 @@ DELIMITER ;
 
 CALL sp_ContarLivrosPorCategoria('Ciência');
 
+-- 4
+DELIMITER //
+CREATE PROCEDURE sp_VerificarLivrosCategoria(IN nm_categoria VARCHAR(50), OUT tem_livros ENUM('sim', 'não'))
+BEGIN
+    DECLARE qtd_livros INT;
+
+	SELECT COUNT(l.Categoria_ID) AS qtd_livros
+    INTO qtd_livros
+    FROM Categoria c
+    INNER JOIN Livro l ON c.Categoria_ID = l.Categoria_ID
+    WHERE c.Nome = nm_categoria
+    GROUP BY c.Nome;
+   
+    IF qtd_livros > 0 THEN
+		SET tem_livros = 'sim';
+	ELSE
+		SET tem_livros = 'não';
+	END IF;
+END;
+//
+DELIMITER ;
+
+CALL sp_VerificarLivrosCategoria('Ficção Científica', @tem_livros);
+SELECT @tem_livros;
