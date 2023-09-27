@@ -94,3 +94,28 @@ DELIMITER ;
 
 CALL sp_TitulosPorCategoria('Romance');
 
+-- 7
+DELIMITER //
+CREATE PROCEDURE sp_AdicionarLivro(IN nm_livro VARCHAR(80))
+BEGIN
+	DECLARE p_livros INT;
+   
+    SELECT l.Livro_ID 
+    INTO p_livros
+    FROM Livro l
+    WHERE l.Titulo = nm_livro;
+    
+    IF p_livros IS NOT NULL THEN
+		SIGNAL SQLSTATE '45000'
+		SET MESSAGE_TEXT = 'Esse livro já existe.';
+	ELSE
+		INSERT INTO Livro (Titulo)
+		VALUES (nm_livro);
+	END IF;
+END;
+//
+DELIMITER ;
+
+CALL sp_AdicionarLivro('Amor e Gelato');
+SELECT l.Titulo FROM Livro l;
+
